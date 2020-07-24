@@ -22,6 +22,8 @@ import javafx.stage.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -55,6 +57,7 @@ public class Controller implements Initializable {
     private Stage stage;
     private Stage regStage;
     RegController regController;
+
 
     public void setAuthenticated(boolean authenticated) {
         this.authenticated = authenticated;
@@ -111,6 +114,8 @@ public class Controller implements Initializable {
                         if (str.startsWith("/authok ")) {
                             nick = str.split("\\s")[1];
                             setAuthenticated(true);
+                            LocalHistory.addFile(nick);
+//                            loadHistory(nick);
                             break;
                         }
 
@@ -158,6 +163,7 @@ public class Controller implements Initializable {
 
                         } else {
                             textArea.appendText(str + "\n");
+                            LocalHistory.addMsgHistory(nick, str);
                         }
                     }
                 } catch (RuntimeException e) {
@@ -258,5 +264,33 @@ public class Controller implements Initializable {
         }
     }
 
+//    public void loadHistory(String login) throws IOException {
+//
+//        int posHistory = 5;
+//        File history = new File("client/src/main/java/history/history_" + login + ".txt");
+//
+//        List<String> historyList = new ArrayList<>();
+//
+//        FileInputStream in = new FileInputStream(history);
+//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+//
+//        String temp;
+//
+//        while ((temp = bufferedReader.readLine()) != null) {
+//            historyList.add(temp);
+//        }
+//
+//        if (historyList.size() > posHistory) {
+//            for (int i = historyList.size() - posHistory; i <= (historyList.size() - 1); i++) {
+//                textArea.appendText(historyList.get(i) + "\n");
+//            }
+//        } else {
+//            for (int i = 0; i < posHistory; i++) {
+//                textArea.appendText(historyList.get(i));
+//            }
+//        }
+//    }
+
 }
+
 

@@ -27,6 +27,8 @@ public class Server {
         ServerSocket server = null;
         Socket socket;
 
+
+
         final int PORT = 8189;
 
         try {
@@ -51,7 +53,7 @@ public class Server {
         }
     }
 
-    void broadcastMsg(ClientHandler sender, String msg) {
+    void broadcastMsg(ClientHandler sender, String msg) throws IOException {
         String message = String.format("%s : %s", sender.getNick(), msg);
 
         //==============//
@@ -63,7 +65,7 @@ public class Server {
         }
     }
 
-    void privateMsg(ClientHandler sender, String receiver, String msg) {
+    void privateMsg(ClientHandler sender, String receiver, String msg) throws IOException {
         String message = String.format("[%s] private [%s] : %s", sender.getNick(), receiver, msg);
 
         for (ClientHandler c : clients) {
